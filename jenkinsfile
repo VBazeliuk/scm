@@ -1,0 +1,40 @@
+pipeline {
+  environment {
+    registry = "vbdevops/build_nginx_site"
+    registryCredential = "f27ca4be-da99-490a-8b49-6acdc803af4d"
+	dockerImage = ''
+  }
+    agent any
+
+  	stages 	{
+
+    stage('Cloning Git') {
+      steps {
+       		 git 'https://github.com/VBazeliuk/site.git'
+      		}
+    					}			
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        
+              }        
+      }
+    }
+    stage('Deploy Image') {
+      steps{
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Run docker image') {
+      steps{
+        sh "docker run -d -p 80:80 $registry:$BUILD_NUMBER"
+      }
+    }
+    
+  }
+}
