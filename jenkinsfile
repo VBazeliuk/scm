@@ -17,8 +17,16 @@ pipeline {
       steps{
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        
-              }        
+                      }
+	post {
+	
+    failure {
+            echo "Image failed:"
+			  sh "docker rm -f site"
+			  sh "docker run -d --name site -p 80:80 $registry:latest"			  
+        }
+}
+					  
       }
     }
     stage('Deploy Image') {
@@ -51,3 +59,4 @@ pipeline {
   
   }
 }
+
