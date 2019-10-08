@@ -31,8 +31,10 @@ pipeline {
     }
     stage('Run docker image') {
       steps{
-        sh "docker run -d --name site -p 80:80 $registry:$BUILD_NUMBER"
-      }
+
+		sh "docker rm -f site"
+ 		sh "docker run -d --name site -p 80:80 $registry:$BUILD_NUMBER"
+      } 
       
     
 	post {
