@@ -32,7 +32,7 @@ pipeline {
     }
     stage('Run docker image') {
       steps{
-        sh "docker run -d --name site -p 80:80 $registry:$BUILD_NUMBER"
+        sh "docker run -d --name site -p 80:80 $registry:"
       }
       
     
@@ -44,7 +44,7 @@ pipeline {
     failure {
             echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
 			  sh "docker rm -f site"
-			  sh "docker run -d --name site -p 80:80 $registry:$BUILD_NUMBER"			  
+			  sh "docker run -d --name site -p 80:80 $registry:"			  
         }
 }
 }
