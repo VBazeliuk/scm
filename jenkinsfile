@@ -43,7 +43,7 @@ pipeline {
  }
     failure {
             echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
-			  sh "docker rm -f $(docker ps -aqf "site")"
+			  sh "docker rm -f $(docker ps -aqf "name=site")"
 			  sh "docker run -d --name site -p 80:80 $registry:$BUILD_NUMBER-1"			  
         }
 }
