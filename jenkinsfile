@@ -34,9 +34,9 @@ pipeline {
       steps{
         sh "docker run -d -p 80:80 $registry:$BUILD_NUMBER"
       }
-    }
-  
-    post {
+      
+    
+	post {
 		success {
             echo "I'm successful: ${currentBuild.result} <> ${currentBuild.currentResult}"
         }
@@ -46,7 +46,7 @@ pipeline {
 			  sh "docker run -d -p 80:80 $registry:$BUILD_NUMBER-1"			  
         }
 }
-
+}
   
   }
 }
