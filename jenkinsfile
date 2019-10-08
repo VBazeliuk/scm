@@ -44,9 +44,9 @@ pipeline {
        
  }
     failure {
-            echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
+            echo "FIX failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
 			 sh "docker rm -f site" 
-			 sh "docker pull vbdevops/build_nginx_site"
+			 sh "docker pull $registry"
 			 sh "docker run -d -p 80:80 $registry:latest"			  
         }
 }
