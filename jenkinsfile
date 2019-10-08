@@ -40,10 +40,10 @@ pipeline {
 		success {
             echo "I'm successful: ${currentBuild.result} <> ${currentBuild.currentResult}"
        
-			  sh "docker rm -f $registry:$BUILD_NUMBER"-1
  }
     failure {
             echo "I failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
+			  sh "docker rm -f $(docker ps -aqf "registry:$BUILD_NUMBER-1"
 			  sh "docker run -d -p 80:80 $registry:$BUILD_NUMBER-1"			  
         }
 }
