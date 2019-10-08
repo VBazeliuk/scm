@@ -20,7 +20,7 @@ pipeline {
 	post {
 	
     failure {
-            echo "Image failed:"
+			  echo "Image failed: ${currentBuild.result} <> ${currentBuild.currentResult}"
 			  sh "docker rm -f site"
 			  sh "docker run -d --name site -p 80:80 $registry:latest"			  
         }
