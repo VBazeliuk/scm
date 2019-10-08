@@ -34,7 +34,7 @@ pipeline {
 
 		sh "docker rm -f site" 
  		sh "docker run -d --name site -p 80:80 $registry:$BUILD_NUMBER"
-            	sh "curl -s --head  --request GET http://192.168.1.186/ | grep '200 OK'"
+            	sh "curl -s --head  --request GET http://192.168.1.188/ | grep '200 OK'"
       } 
       
     
